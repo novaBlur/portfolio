@@ -543,7 +543,7 @@
                     <h2>About Me</h2>
                     <p>I'm experienced in building small software projects, analyzing datasets, and practicing coding challenges.</p>
                     <p>I'm seeking an IT internship to gain real-world experience and contribute to impactful projects.</p>
-                    <p>I leverage modern technologies and AI tools like ChatGPT and GitHub Copilot to speed up development, enhance creativity, and ensure high-quality, efficient results in every project I work on.</p>
+                                            <p>I leverage modern technologies and AI tools like ChatGPT and GitHub Copilot to speed up development, enhance creativity, and ensure high-quality, efficient results in every project I work on.</p>
                     <h3 style="margin-top: 2rem;">Technical Skills</h3>
                     <div class="skills">
                         <div class="skill" style="--i:1;">HTML</div>
@@ -569,50 +569,51 @@
                     <p class="education-details">Brettonwood Highschool | 2021</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Experience Section -->
-            <div class="experience" id="experience">
-                <h2 style="margin-bottom: 1.5rem;">Experience</h2>
-                <div class="experience-item">
-                    <h3 class="experience-title">Event Operations Assistant / Media Day Assistant</h3>
-                    <p class="experience-details">Festival of Motoring | August 2025</p>
-                    <p>Assisted with event operations, media accreditation, and guest coordination during the Festival of Motoring at Kyalami.</p>
-                </div>
-                <div class="experience-item">
-                    <h3 class="experience-title">Tape Sales Roster</h3>
-                    <p class="experience-details">February 2023 - August 2023</p>
-                    <p>Retail and customer service experience.</p>
-                </div>
+    <!-- Experience Section (Moved outside About for proper navigation) -->
+    <section class="section" id="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="experience-item">
+                <h3 class="experience-title">Event Operations Assistant / Media Day Assistant</h3>
+                <p class="experience-details">Festival of Motoring | August 2025</p>
+                <p>Assisted with event operations, media accreditation, and guest coordination during the Festival of Motoring at Kyalami.</p>
+            </div>
+            <div class="experience-item">
+                <h3 class="experience-title">Tape Sales Roster</h3>
+                <p class="experience-details">February 2023 - August 2023</p>
+                <p>Retail and customer service experience.</p>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-   <section class="section" id="contact">
-  <div class="container">
-    <div class="contact">
-      <h2 class="section-title">Get In Touch</h2>
-      <p>I'm always open to discussing new opportunities, creative projects, or potential collaborations.</p>
-      
-      <div class="social-links">
-        <a href="https://github.com/novaBlur" class="social-link" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-        <a href="https://linkedin.com/in/jeremiah-archary-0672b12b8/" class="social-link" target="_blank">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-        <a href="mailto:steajdj@gmail.com" class="social-link">
-          <i class="fas fa-envelope"></i>
-        </a>
-      </div>
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="contact">
+                <h2 class="section-title">Get In Touch</h2>
+                <p>I'm always open to discussing new opportunities, creative projects, or potential collaborations.</p>
+                
+                <div class="social-links">
+                    <a href="https://github.com/novaBlur" class="social-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/jeremiah-archary-0672b12b8/" class="social-link" target="_blank">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="mailto:steajdj@gmail.com" class="social-link">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
 
-      <a href="https://wa.me/27814028475" class="btn btn-primary" target="_blank">
-        <i class="fab fa-whatsapp"></i> WhatsApp me
-      </a>
-    </div>
-  </div>
-</section>
-
+                <a href="https://wa.me/27814028475" class="btn btn-primary" target="_blank">
+                    <i class="fab fa-whatsapp"></i> WhatsApp me
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
@@ -622,47 +623,47 @@
     </footer>
 
     <script>
-    // Mobile menu toggle
-    document.querySelector('.mobile-menu').addEventListener('click', function() {
-        const navLinks = document.querySelector('.nav-links');
-        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-    });
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
 
-    // Smooth scrolling for anchor links with mobile check
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 100,
-                    behavior: 'smooth'
-                });
+        // Smooth scrolling for anchor links with mobile check
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
                 
-                // Only close mobile menu if on mobile (screen width <= 768px)
-                if (window.innerWidth <= 768) {
-                    document.querySelector('.nav-links').style.display = 'none';
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Only close mobile menu if on mobile (screen width <= 768px)
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.nav-links').style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // Optional: Add scroll event to re-open menu on mobile when scrolling to top
+        window.addEventListener('scroll', function() {
+            if (window.innerWidth <= 768) {  // Only on mobile
+                const navLinks = document.querySelector('.nav-links');
+                if (window.scrollY === 0) {  // At the top of the page
+                    navLinks.style.display = 'none';  // Or 'flex' if you want it to open automatically
+                    // Note: Uncomment the line below if you want it to open automatically at the top
+                    // navLinks.style.display = 'flex';
                 }
             }
         });
-    });
-
-    // Optional: Add scroll event to re-open menu on mobile when scrolling to top
-    window.addEventListener('scroll', function() {
-        if (window.innerWidth <= 768) {  // Only on mobile
-            const navLinks = document.querySelector('.nav-links');
-            if (window.scrollY === 0) {  // At the top of the page
-                navLinks.style.display = 'none';  // Or 'flex' if you want it to open automatically
-                // Note: Uncomment the line below if you want it to open automatically at the top
-                // navLinks.style.display = 'flex';
-            }
-        }
-    });
-</script>
+    </script>
 
 </body>
 </html>
