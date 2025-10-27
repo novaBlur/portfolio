@@ -201,3 +201,28 @@ window.addEventListener('scroll', checkReveal);});
             }
         }
     });
+
+ // Background Music Control (Plays Once)
+const bgMusic = document.getElementById('bg-music');
+const musicControl = document.getElementById('music-control');
+let hasPlayed = false;
+
+// Attempt autoplay on page load (may be blocked)
+document.addEventListener('DOMContentLoaded', () => {
+    bgMusic.play().catch(error => {
+        console.log('Autoplay blocked:', error); // Logs if blocked
+        musicControl.style.display = 'block'; // Show button if blocked
+    });
+    hasPlayed = true; // Prevent re-playing
+});
+
+// Manual play/pause toggle
+musicControl.addEventListener('click', () => {
+    if (bgMusic.paused) {
+        bgMusic.play();
+        musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+        bgMusic.pause();
+        musicControl.innerHTML = '<i class="fas fa-play"></i>';
+    }
+});

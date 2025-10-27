@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-       <link rel="preload" href="./assets/portfoliopic.jpg" as="image">
+        <link rel="preload" href="./assets/portfoliopic.jpg" as="image">
        <link rel="preload" href="./assets/oyoma-preview.PNG" as="image">
        <link rel="preload" href="./assets/background-music.mp3" as="audio">
     <meta charset="UTF-8">
@@ -29,6 +29,16 @@
     </div>
 <!-- Main Page -->
 <div id="main-page">
+ <!-- Background Music (Plays Once on Load) -->
+<audio id="bg-music" autoplay volume="0.3">
+    <source src="./assets/background-music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<!-- Optional Play/Mute Button (for user control if autoplay fails) -->
+<button id="music-control" style="position: fixed; bottom: 150px; right: 40px; background: #474af0; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; z-index: 1000;">
+    <i class="fas fa-play"></i>
+</button>
     <!-- Header -->
     <header>
         <div class="container">
