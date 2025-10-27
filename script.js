@@ -207,7 +207,7 @@ const bgMusic = document.getElementById('bg-music');
 const musicControl = document.getElementById('music-control');
 let hasPlayed = false;
 
-// Attempt autoplay on page load (may be blocked)
+// Attempt autoplay on page load (may be blocked) fix
 document.addEventListener('DOMContentLoaded', () => {
     bgMusic.play().catch(error => {
         console.log('Autoplay blocked:', error); // Logs if blocked
