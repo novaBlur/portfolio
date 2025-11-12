@@ -514,7 +514,7 @@
         }
 
         .home {
-            margin: 160px 200px;
+            margin: 100px 5vw;
         }
 
         .home-container {
@@ -633,7 +633,7 @@
     /* fine home  */
 
     .about{
-        margin: 160px 200px;
+        margin: 100px 5vw;
     }
 
     .about p{
@@ -709,7 +709,7 @@
     }
 
     .project{
-        margin: 160px 200px;
+        margin: 100px 5vw;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -821,7 +821,7 @@
     }
 
     .services{
-        margin: 160px 200px;
+        margin: 100px 5vw;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -908,7 +908,7 @@
     }
 
     .contact{
-        margin: 160px 200px;
+        margin: 100px 5vw;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1127,6 +1127,7 @@
         margin:0;
         padding:0;
         font-family: sans-serif;
+        font-size: clamp(14px, 2vw, 18px);
     }
 
     #loading-screen {
@@ -1330,3 +1331,72 @@
             overflow-x: hidden;
         }
     }
+/* ===================
+   Mobile Optimizations
+   =================== */
+@media (max-width: 768px) {
+
+  /* Fix sections spacing */
+  .home, .about, .project, .services, .contact {
+    margin: 80px 1rem;
+  }
+
+  /* Stack hero layout */
+  .home-container {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .home img {
+    width: 90%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  /* Make about section stack */
+  .about-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about img {
+    width: 90%;
+    max-width: 300px;
+    height: auto;
+    position: static;
+    margin-bottom: 2rem;
+  }
+
+  /* Grid adjustments */
+  .projects-container, .services-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Contact section stack */
+  .contact-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .contact-info {
+    text-align: center;
+  }
+
+  /* Fix buttons */
+  .btn, .btn-home1, .btn-home2 {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+
+  /* Nav fixes */
+  .nav-links {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+

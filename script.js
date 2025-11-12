@@ -201,3 +201,11 @@ window.addEventListener('scroll', checkReveal);});
             }
         }
     });
+// close menu after clicking a link (optional improvement)
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      document.querySelector('.nav-links').style.display = 'none';
+    }
+  });
+});
