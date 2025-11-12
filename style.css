@@ -261,36 +261,38 @@
             text-shadow: 0 0 10px rgba(99, 102, 241, 0.2); /* Subtle glow */
         }
 
-       /* Responsive tweaks */
-@media (max-width: 1024px) {
-  .projects-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-}
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
 
-@media (max-width: 768px) {
-  .projects-grid {
-    grid-template-columns: 1fr; /* Single column on small screens */
-    gap: 1.25rem;
-  }
+        .project-card {
+            background-color: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, rotate 0.5s; /* Flip effect */
+            cursor: pointer;
+            perspective: 1000px; /* For 3D flip */
+        }
 
-  .project-card {
-    transform: none !important;
-    perspective: none;
-    border-radius: 10px;
-  }
+        .project-card:hover {
+            transform: rotateY(10deg) scale(1.05); /* Flip and scale */
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.5); /* Glow */
+        }
 
-  .project-card:hover {
-    transform: none;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-  }
+        .project-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: transform 0.5s ease, filter 0.5s;
+        }
 
-  .project-img {
-    height: 180px;
-    border-radius: 10px 10px 0 0;
-  }
-}
+        .project-card:hover .project-img {
+            transform: scale(1.1);
+            filter: brightness(1.2); /* Brighten on hover */
+        }
 
         .overlay {
             position: absolute;
