@@ -1,211 +1,297 @@
+// Single Source of Truth for Navigation
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('section');
+const mobileMenu = document.querySelector('.mobile-menu');
+const navLinksContainer = document.querySelector('.nav-links');
 
-    // Provided JavaScript for navigation, animations, etc.
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const sections = document.querySelectorAll('section');
-
-    function removeActive() {
-        navLinks.forEach(link => link.parentElement.classList.remove('active'));
-    }
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', e => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-
-            window.scrollTo({
-                top: targetSection.offsetTop - 80, 
-                behavior: 'smooth'
-            });
-
-            removeActive();
-            link.parentElement.classList.add('active');
-        });
-    });
-
-    window.addEventListener('scroll', () => {
-        let scrollPos = window.scrollY + 100;
-
-        sections.forEach(section => {
-            if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-                removeActive();
-                const activeLink = document.querySelector(`.nav-links a[href="#${section.id}"]`);
-                if (activeLink) activeLink.parentElement.classList.add('active');
-            }
-        });
-
-        if(window.scrollY > 500){
-            backToTop.style.display = "flex";
-        } else {
-            backToTop.style.display = "none";
-        }
-
-        // Reveal elements on load and scroll
-function checkReveal() {
-    revealElements.forEach(el => {
-        const windowHeight = window.innerHeight;
-        const elementTop = el.getBoundingClientRect().top;
-        const revealPoint = 150;
-
-        if (elementTop < windowHeight - revealPoint) {
-            el.classList.add('active-reveal');
-        }
-    });
+// Ensure elements exist before proceeding
+if (!navLinks.length || !sections.length) {
+    console.warn('Navigation elements not found');
 }
 
-// Trigger reveal on page load (after loading screen)
-document.addEventListener('DOMContentLoaded', () => {
-    // ... your existing loading screen code ...
+// Debounce function for performance optimization
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
-    // After main page is visible, trigger initial reveal
-    setTimeout(() => {
-        checkReveal(); // Reveal elements immediately
-    }, 4500); // Slightly after loading screen fades (adjust to match your timeout)
+// Smooth scroll to section with offset for header
+function scrollToSection(targetId) {
+    const targetSection = document.querySelector(targetId);
+    if (targetSection) {
+        const headerHeight = document.querySelector('header').offsetHeight || 80;
+        const targetPosition = targetSection.offsetTop - headerHeight;
+        
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// Handle Active Link on Scroll (with debouncing for performance)
+const handleScroll = debounce(() => {
+    let current = "";
+    const scrollPosition = window.pageYOffset + 200; // Offset for better detection
+    
+    sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            current = section.getAttribute("id");
+        }
+    });
+
+    navLinks.forEach((a) => {
+        const linkParent = a.parentElement; // Should be <li>
+        if (linkParent) {
+            linkParent.classList.remove("active");
+            const href = a.getAttribute("href");
+            if (href && current && href.includes(current)) {
+                linkParent.classList.add("active");
+            }
+        }
+    });
+
+    // Back to Top Visibility
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        backToTop.style.display = window.scrollY > 500 ? "flex" : "none";
+        backToTop.setAttribute('aria-hidden', window.scrollY <= 500);
+    }
+}, 10); // Debounce scroll events
+
+window.addEventListener('scroll', handleScroll);
+
+// Navigation Link Click Handlers with Smooth Scroll
+navLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        
+        if (targetId && targetId.startsWith('#')) {
+            scrollToSection(targetId);
+            
+            // Close mobile menu after navigation
+            if (navLinksContainer && window.innerWidth <= 768) {
+                navLinksContainer.classList.remove('active-menu');
+                // Update mobile menu icon
+                const menuIcon = mobileMenu?.querySelector('i');
+                if (menuIcon) {
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                }
+            }
+        }
+    });
 });
 
-// Also trigger on scroll for dynamic reveals
-window.addEventListener('scroll', checkReveal);});
-
-    const backToTop = document.createElement('div');
-    backToTop.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
-    backToTop.id = "back-to-top";
-    document.body.appendChild(backToTop);
-
-    backToTop.style.cssText = `
-        position: fixed;
-        bottom: 40px;
-        right: 40px;
-        background: #474af0;
-        color: white;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 1000;
-        transition: transform 0.3s ease;
-    `;
-
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    backToTop.addEventListener('mouseover', () => backToTop.style.transform = 'scale(1.2)');
-    backToTop.addEventListener('mouseout', () => backToTop.style.transform = 'scale(1)');
-
-    const cards = document.querySelectorAll('.project-card, .skill');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-8px) scale(1.05)');
-        card.addEventListener('mouseleave', () => card.style.transform = 'translateY(0) scale(1)');
-    });
-
-    const typingElement = document.querySelector('.hero h1'); 
-    const words = ["AI Assisted Full-Stack Developer", "Data Analyst", "Java Programmer"];
+// Typing Effect Logic with Error Handling
+function initTypingEffect() {
+    const typingElement = document.querySelector('.hero h1');
+    if (!typingElement) return;
+    
+    const words = ["Full-Stack Developer", "Systems & Automation", "Data Analyst"];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let typingSpeed = 100;
+    let typingTimeout;
 
     function type() {
         const currentWord = words[wordIndex];
-        let displayedText = currentWord.substring(0, charIndex);
-        
-        typingElement.innerHTML = displayedText + '<span class="cursor">|</span>';
+        const displayedText = isDeleting ? 
+            currentWord.substring(0, charIndex--) : 
+            currentWord.substring(0, charIndex++);
 
-        if (!isDeleting && charIndex < currentWord.length) {
-            charIndex++;
-            setTimeout(type, typingSpeed);
-        } else if (isDeleting && charIndex > 0) {
-            charIndex--;
-            setTimeout(type, typingSpeed / 2);
-        } else {
-            isDeleting = !isDeleting;
-            if (!isDeleting) {
-                wordIndex = (wordIndex + 1) % words.length;
-            }
-            setTimeout(type, 1000);
+        typingElement.innerHTML = `${displayedText}<span class="cursor" aria-hidden="true">|</span>`;
+
+        let speed = isDeleting ? 50 : 100;
+
+        if (!isDeleting && charIndex === currentWord.length + 1) {
+            isDeleting = true;
+            speed = 1500; // Pause at end
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            speed = 500;
         }
+
+        typingTimeout = setTimeout(type, speed);
     }
+    
+    type();
+    
+    // Cleanup function for when page unloads
+    return () => {
+        if (typingTimeout) clearTimeout(typingTimeout);
+    };
+}
 
-    document.addEventListener('DOMContentLoaded', type);
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const loadingText = document.getElementById("loading-text");
-        const mainIcon = document.querySelector(".main-icon");
-        const subIcons = document.querySelectorAll(".sub-icons i");
-        const designerText = document.getElementById("designer-text");
-        const mainPage = document.getElementById("main-page");
-        const loadingScreen = document.getElementById("loading-screen");
-
-        function showElement(element, delay=0){
-            setTimeout(() => {
-                element.classList.remove("hidden");
-                element.classList.add("fall");
-            }, delay);
+// Mobile Menu Toggle with Icon Animation
+if (mobileMenu && navLinksContainer) {
+    mobileMenu.addEventListener('click', () => {
+        navLinksContainer.classList.toggle('active-menu');
+        const menuIcon = mobileMenu.querySelector('i');
+        
+        if (menuIcon) {
+            if (navLinksContainer.classList.contains('active-menu')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+                mobileMenu.setAttribute('aria-expanded', 'true');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+                mobileMenu.setAttribute('aria-expanded', 'false');
+            }
         }
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && 
+            navLinksContainer.classList.contains('active-menu') &&
+            !navLinksContainer.contains(e.target) &&
+            !mobileMenu.contains(e.target)) {
+            navLinksContainer.classList.remove('active-menu');
+            const menuIcon = mobileMenu.querySelector('i');
+            if (menuIcon) {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+            mobileMenu.setAttribute('aria-expanded', 'false');
+        }
+    });
+    
+    // Close mobile menu on window resize
+    window.addEventListener('resize', debounce(() => {
+        if (window.innerWidth > 768 && navLinksContainer.classList.contains('active-menu')) {
+            navLinksContainer.classList.remove('active-menu');
+            const menuIcon = mobileMenu.querySelector('i');
+            if (menuIcon) {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+            mobileMenu.setAttribute('aria-expanded', 'false');
+        }
+    }, 250));
+}
 
-        showElement(loadingText, 0);          
-        showElement(mainIcon, 800);         
-        subIcons.forEach((icon, idx) => {
-            showElement(icon, 1600 + idx*400);  
-        });
-        showElement(designerText, 2800);    
+// Keyboard Navigation Support
+document.addEventListener('keydown', (e) => {
+    // ESC key closes mobile menu
+    if (e.key === 'Escape' && navLinksContainer?.classList.contains('active-menu')) {
+        navLinksContainer.classList.remove('active-menu');
+        const menuIcon = mobileMenu?.querySelector('i');
+        if (menuIcon) {
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+        }
+        mobileMenu?.setAttribute('aria-expanded', 'false');
+        mobileMenu?.focus();
+    }
+});
 
+// Intersection Observer for Reveal Animations (Performance Optimization)
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active-reveal');
+            revealObserver.unobserve(entry.target); // Stop observing once revealed
+        }
+    });
+}, observerOptions);
+
+// Observe elements with reveal class
+document.addEventListener('DOMContentLoaded', () => {
+    const revealElements = document.querySelectorAll('.reveal, .project-card, .skill, .experience-item, .education-item');
+    revealElements.forEach(el => revealObserver.observe(el));
+});
+
+// Initialization
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize typing effect
+    initTypingEffect();
+    
+    // Create Back to Top Button with Accessibility
+    const backToTop = document.createElement('button');
+    backToTop.id = 'back-to-top';
+    backToTop.innerHTML = '<i class="fa-solid fa-chevron-up" aria-hidden="true"></i>';
+    backToTop.setAttribute('aria-label', 'Back to top');
+    backToTop.setAttribute('title', 'Back to top');
+    backToTop.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(backToTop);
+    
+    // Back to Top Click Handler
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Focus management for accessibility
+        document.querySelector('header a')?.focus();
+    });
+    
+    // Loading Screen Logic with Error Handling
+    const loadingScreen = document.getElementById("loading-screen");
+    const mainPage = document.getElementById("main-page");
+    
+    if (loadingScreen && mainPage) {
+        // Respect user's motion preferences
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const loadingDuration = prefersReducedMotion ? 1000 : 3500;
+        
         setTimeout(() => {
             loadingScreen.style.opacity = '0';
-            setTimeout(() => loadingScreen.style.display='none', 500);
-            mainPage.classList.add("visible");
-        }, 4000);
-    });
-
-    // Existing script for mobile menu and smooth scrolling
-    // Mobile menu toggle
-    document.querySelector('.mobile-menu').addEventListener('click', function() {
-        const navLinks = document.querySelector('.nav-links');
-        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-    });
-
-    // Smooth scrolling for anchor links with mobile check
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 100,
-                    behavior: 'smooth'
-                });
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                loadingScreen.setAttribute('aria-hidden', 'true');
+                mainPage.classList.add("visible");
+                mainPage.setAttribute('aria-hidden', 'false');
                 
-                // Only close mobile menu if on mobile (screen width <= 768px)
-                if (window.innerWidth <= 768) {
-                    document.querySelector('.nav-links').style.display = 'none';
+                // Focus management - skip to main content
+                const skipLink = document.querySelector('.skip-link');
+                if (skipLink) {
+                    skipLink.style.display = 'none';
                 }
-            }
+            }, 500);
+        }, loadingDuration);
+    } else {
+        // If loading screen doesn't exist, ensure main page is visible
+        if (mainPage) {
+            mainPage.classList.add("visible");
+            mainPage.setAttribute('aria-hidden', 'false');
+        }
+    }
+    
+    // Add loading state management for images
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.addEventListener('load', () => {
+            img.classList.add('loaded');
+        });
+        img.addEventListener('error', () => {
+            img.classList.add('error');
+            img.setAttribute('alt', 'Image failed to load');
         });
     });
+});
 
-    // Optional: Add scroll event to re-open menu on mobile when scrolling to top
-    window.addEventListener('scroll', function() {
-        if (window.innerWidth <= 768) {  // Only on mobile
-            const navLinks = document.querySelector('.nav-links');
-            if (window.scrollY === 0) {  // At the top of the page
-                navLinks.style.display = 'none';  // Or 'flex' if you want it to open automatically
-                // Note: Uncomment the line below if you want it to open automatically at the top
-                // navLinks.style.display = 'flex';
-            }
-        }
-    });
-// close menu after clicking a link (optional improvement)
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    if (window.innerWidth <= 768) {
-      document.querySelector('.nav-links').style.display = 'none';
+// Handle page visibility for performance
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        // Pause animations when tab is hidden
+        document.body.classList.add('page-hidden');
+    } else {
+        document.body.classList.remove('page-hidden');
     }
-  });
 });

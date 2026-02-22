@@ -1,23 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <link rel="preload" href="./assets/portfoliopic.jpg" as="image">
-       <link rel="preload" href="./assets/oyoma-preview.PNG" as="image">
-       <link rel="preload" href="./assets/background-music.mp3" as="audio">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jeremiah Archary - Full-Stack Developer, Systems & Automation Developer, and Data Analyst. BSc IT graduate with real-world experience building production systems.">
+    <meta name="keywords" content="Full-Stack Developer, Web Developer, Systems Developer, Automation, Data Analyst, Portfolio">
+    <meta name="author" content="Jeremiah Archary">
+    <meta name="theme-color" content="#6366f1">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Jeremiah Archary | Portfolio">
+    <meta property="og:description" content="Full-Stack Developer, Systems & Automation Developer, and Data Analyst">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="./assets/portfoliopic.jpg" as="image">
+    <link rel="preload" href="./assets/oyoma-preview.PNG" as="image">
+    
     <title>Jeremiah Archary | Portfolio</title>
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head> 
-<body> 
-    <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Scripts -->
+    <script src="script.js" defer></script>
+</head> 
+<body>
+    <!-- Skip to Main Content Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Loading Screen --> 
-     <div id="loading-screen">
-         <div class="loading-content"> 
+    <div id="loading-screen" aria-live="polite" aria-label="Loading page content">
+        <div class="loading-content"> 
             <h1 id="loading-text" class="hidden">Jeremiah Archary</h1> 
-            <i class="fa-solid fa-code main-icon hidden"></i> 
-            <div class="sub-icons"> 
+            <i class="fa-solid fa-code main-icon hidden" aria-hidden="true"></i> 
+            <div class="sub-icons" aria-hidden="true"> 
                 <i class="fa-brands fa-html5 hidden"></i> 
                 <i class="fa-brands fa-css3-alt hidden"></i> 
                 <i class="fa-brands fa-js hidden"></i> 
@@ -27,89 +45,81 @@
             <h2 id="designer-text" class="hidden"> Developer </h2> 
         </div> 
     </div>
-<!-- Main Page -->
-<div id="main-page">
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
-                <a href="#" class="logo">Jeremiah<span>Archary</span></a>
-                <div class="nav-links">
-                    <a href="#projects">Projects</a>
-                    <a href="#about">About</a>
-                    <a href="#experience">Experience</a>
-                    <a href="#certifications">Certifications</a>
-                    <a href="#contact">Contact</a>
-                </div>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </nav>
-        </div>
-    </header>
+    
+    <!-- Main Page -->
+    <div id="main-page">
+        <!-- Header -->
+        <header role="banner">
+            <div class="container">
+                <nav role="navigation" aria-label="Main navigation">
+                    <a href="#" class="logo" aria-label="Jeremiah Archary Home">Jeremiah<span>Archary</span></a>
+                    <ul class="nav-links">
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#what-i-do">What I Do</a></li>
+                        <li><a href="#education">Education</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#certifications">Certifications</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <button class="mobile-menu" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="nav-links">
+                        <i class="fas fa-bars" aria-hidden="true"></i>
+                    </button>
+                </nav>
+            </div>
+        </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="main-content">
         <div class="container">
-            <h1>AI Assisted Full-Stack Developer & Data Analyst</h1> 
-            <p>Final-year BSc IT student at Richfield Graduate Institute of Technology passionate about Java programming, data analysis, and problem-solving.</p> 
+            <h1>Full-Stack Developer | Systems & Automation</h1>
+            <p>BSc IT graduate with real-world experience building and maintaining production systems. Focused on scalable web apps, automation, and performance.</p>
             <div class="cta-buttons"> 
-                <a href="#projects" class="btn btn-primary"> 
-                    <i class="fas fa-code"></i> View My Work </a> 
-                    <a href="./assets/2025UpdatedCV.pdf" class="btn btn-secondary" download> 
-                    <i class="fas fa-download"></i> Download CV </a> 
-                </div> 
+                <a href="#experience" class="btn btn-primary"> 
+                    <i class="fas fa-briefcase" aria-hidden="true"></i> View Experience </a> 
+                <a href="./assets/2026CV_merged.pdf" class="btn btn-secondary" download> 
+                    <i class="fas fa-download" aria-hidden="true"></i> Download CV </a> 
             </div> 
-        </section>
-    <!-- Projects Section -->
-    <section class="section" id="projects">
+        </div> 
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section" id="experience">
         <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card" onclick="window.open('https://github.com/novaBlur/task-manager','_blank')">
-                    <div class="project-img" style="background: linear-gradient(135deg, #4f46e5, #6366f1);">
-                        <div class="overlay">Task Manager</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Java Task Manager</h3>
-                        <p class="project-description">Developed a task manager app with task creation, search, completion marking, and file persistence using Java.</p>
-                        <div class="project-tags">
-                            <span class="tag">Java</span>
-                            <span class="tag">GUI Development</span>
-                            <span class="tag">File I/O</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://oyoma.netlify.app','_blank')">
-                    <div class="project-img" style="background-image: url('./assets/oyoma-preview.PNG');">
-                        <div class="overlay">Oyoma Website</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Oyoma Restaurant Website</h3>
-                        <p class="project-description">A sleek restaurant landing page built with HTML, CSS, and JavaScript, featuring responsive design and Google Business integration.</p>
-                        <div class="project-tags">
-                            <span class="tag">Web Development</span>
-                            <span class="tag">Responsive Design</span>
-                            <span class="tag">Google Business</span>
-                        </div>
-                    </div>
-                </div>
-                 <div class="project-card" onclick="window.open('https://unifieddashboardstudyplanner.netlify.app/','_blank')">
-                    <div class="project-img" style="background-image: url('./assets/Dashboard.PNG');">
-                        <div class="overlay">Planner 
-                            + Note Taker</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Unified Dashboard Study Planner+Note Taker</h3>
-                        <p class="project-description">Unified study planner with rich-text notes, subject progress donuts, drag-and-drop organization, and an integrated Pomodoro timer — boost focus and track learning at a glance.</p>
-                        <div class="project-tags">
-                            <span class="tag">Web Development</span>
-                            <span class="tag">Responsive Design</span>
-                            <span class="tag">Progress Donuts</span>
-                        </div>
-                    </div>
+            <h2 class="section-title">Experience</h2>
+            
+            <!-- Professional Experience -->
+            <div class="experience-category reveal">
+                <h3 class="experience-category-title">Professional Experience</h3>
+                <div class="experience-item highlight reveal">
+                    <h3 class="experience-title">Operations Developer – Barrows</h3>
+                    <p class="experience-details">Nov 2025 – Present</p>
+                    <p>
+                        Working on production systems: debugging, feature development, automation, and deployment.
+                        Built dashboards, authentication flows, and improved system performance across frontend and backend.
+                    </p>
+                    <ul class="project-tags">
+                        <li class="tag">Docker</li>
+                        <li class="tag">Automation</li>
+                        <li class="tag">Debugging</li>
+                        <li class="tag">Production Systems</li>
+                    </ul>
                 </div>
             </div>
+
+            <!-- Other Experience -->
+            <div class="experience-category reveal">
+                <h3 class="experience-category-title">Other Experience</h3>
+                <div class="experience-item reveal">
+                    <h3 class="experience-title">Event Operations Assistant / Media Day Assistant</h3>
+                    <p class="experience-details">Festival of Motoring | August 2025</p>
+                    <p>Assisted with event operations, media accreditation, and guest coordination during the Festival of Motoring at Kyalami.</p>
+                </div>
+                <div class="experience-item reveal">
+                    <h3 class="experience-title">Tape Sales Roster</h3>
+                    <p class="experience-details">February 2023 - August 2023</p>
+                    <p>Retail and customer service experience.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -118,12 +128,17 @@
     <section class="section" id="about">
         <div class="container">
             <div class="about">
-                <div class="about-img" style="background-image: url('./assets/portfoliopic.jpg'); background-size: cover; background-position: center; border-radius: 12px; height: 400px;"></div>
+                <div class="about-img" style="background-image: url('./assets/portfoliopic.jpg'); background-size: cover; background-position: center; border-radius: 12px; height: 400px;" role="img" aria-label="Jeremiah Archary portrait"></div>
                 <div class="about-content">
                     <h2>About Me</h2>
-                    <p>I'm experienced in building small software projects, analyzing datasets, and practicing coding challenges.</p>
-                    <p>I'm seeking an IT internship to gain real-world experience and contribute to impactful projects.</p>
-                    <p>I leverage modern technologies and AI tools like ChatGPT and GitHub Copilot to speed up development, enhance creativity, and ensure high-quality, efficient results in every project I work on.</p>
+                    <p>
+                        I have hands-on experience developing and maintaining real-world systems in a production environment.
+                        I specialize in debugging, feature development, and improving system performance across full-stack applications.
+                        </p>
+                        
+                        <p>
+                        I've worked with tools like Docker, automation workflows, and modern development practices to deliver scalable and maintainable solutions.
+                        </p>
                     <h3 style="margin-top: 2rem;">Technical Skills</h3>
                     <div class="skills">
                         <div class="skill" style="--i:1;">HTML</div>
@@ -135,36 +150,116 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Education Section -->
+    <!-- What I Do Section -->
+    <section class="section" id="what-i-do">
+        <div class="container">
+            <h2 class="section-title">What I Do</h2>
+        
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <i class="fas fa-bug" aria-hidden="true"></i>
+                    </div>
+                    <h3>System Debugging</h3>
+                    <p>Diagnosing and fixing production issues across frontend and backend systems.</p>
+                </div>
+        
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <i class="fas fa-robot" aria-hidden="true"></i>
+                    </div>
+                    <h3>Automation</h3>
+                    <p>Building workflows using APIs and tools like n8n to streamline operations.</p>
+                </div>
+        
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <i class="fas fa-code" aria-hidden="true"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>Developing scalable and responsive applications with modern technologies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="section" id="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
             <div class="education">
-                <h2 style="margin-bottom: 1.5rem;">Education</h2>
-                <div class="education-item">
+                <div class="education-item reveal">
                     <h3 class="education-title">Bachelor of Science in Information Technology</h3>
                     <p class="education-details">Richfield Graduate Institute of Technology | 2022 - 2025 (In Progress)</p>
                     <p>Overall GPA: 84.82 (Year 1) | 76.80 (Year 2)</p>
                 </div>
-                <div class="education-item">
+                <div class="education-item reveal">
                     <h3 class="education-title">Bachelors Pass Grade 12</h3>
                     <p class="education-details">Brettonwood Highschool | 2021</p>
                 </div>
             </div>
         </div>
     </section>
+        </div>
+    </section>
 
-    <!-- Experience Section (Moved outside About for proper navigation) -->
-    <section class="section" id="experience">
+    <!-- Projects Section -->
+    <section class="section" id="projects">
         <div class="container">
-            <h2 class="section-title">Experience</h2>
-            <div class="experience-item">
-                <h3 class="experience-title">Event Operations Assistant / Media Day Assistant</h3>
-                <p class="experience-details">Festival of Motoring | August 2025</p>
-                <p>Assisted with event operations, media accreditation, and guest coordination during the Festival of Motoring at Kyalami.</p>
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <article class="project-card reveal">
+                    <a href="https://github.com/novaBlur/task-manager" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View Java Task Manager project on GitHub">
+                        <div class="project-img" style="background: linear-gradient(135deg, #4f46e5, #6366f1);" aria-hidden="true">
+                            <div class="overlay">Task Manager</div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Java Task Manager</h3>
+                            <p class="project-description">Developed a task manager app with task creation, search, completion marking, and file persistence using Java.</p>
+                            <ul class="project-tags">
+                                <li class="tag">Java</li>
+                                <li class="tag">GUI Development</li>
+                                <li class="tag">File I/O</li>
+                            </ul>
+                        </div>
+                    </a>
+                </article>
+                <article class="project-card reveal">
+                    <a href="https://oyoma.netlify.app" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View Oyoma Restaurant Website project">
+                        <div class="project-img" style="background-image: url('./assets/oyoma-preview.PNG');" aria-hidden="true">
+                            <div class="overlay">Oyoma Website</div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Oyoma Restaurant Website</h3>
+                            <p class="project-description">A sleek restaurant landing page built with HTML, CSS, and JavaScript, featuring responsive design and Google Business integration.</p>
+                            <ul class="project-tags">
+                                <li class="tag">Web Development</li>
+                                <li class="tag">Responsive Design</li>
+                                <li class="tag">Google Business</li>
+                            </ul>
+                        </div>
+                    </a>
+                </article>
+                <article class="project-card reveal">
+                    <a href="https://unifieddashboardstudyplanner.netlify.app/" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View Unified Dashboard Study Planner project">
+                        <div class="project-img" style="background-image: url('./assets/Dashboard.PNG');" aria-hidden="true">
+                            <div class="overlay">Planner + Note Taker</div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Unified Dashboard Study Planner+Note Taker</h3>
+                            <p class="project-description">Unified study planner with rich-text notes, subject progress donuts, drag-and-drop organization, and an integrated Pomodoro timer — boost focus and track learning at a glance.</p>
+                            <ul class="project-tags">
+                                <li class="tag">Web Development</li>
+                                <li class="tag">Responsive Design</li>
+                                <li class="tag">Progress Donuts</li>
+                            </ul>
+                        </div>
+                    </a>
+                </article>
             </div>
-            <div class="experience-item">
-                <h3 class="experience-title">Tape Sales Roster</h3>
-                <p class="experience-details">February 2023 - August 2023</p>
-                <p>Retail and customer service experience.</p>
             </div>
         </div>
     </section>
@@ -213,7 +308,7 @@
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
             <p>&copy; 2025 Jeremiah Archary. All rights reserved.</p>
         </div>
